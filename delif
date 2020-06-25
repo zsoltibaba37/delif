@@ -1,0 +1,14 @@
+#!/bin/bash
+# A Simple Shell Script Deletes The Identical Files
+# Zsolt Peto - 2020-06-24
+#
+# Set the path correctly
+# Example: /home/user/foo/
+#
+# Don't forget the slash the end of line
+#
+workdir="/ISO_DOK/AUDIT_LOG/"
+if [ -d "$workdir" ]; then
+    md5sum $workdir*.txt | sort -t ' ' -k 4 -r | awk 'BEGIN{lasthash = ""} $1 == lasthash {print $2} {lasthash = $1}' | xargs rm 2> /dev/null
+fi
+
